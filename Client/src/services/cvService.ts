@@ -1,5 +1,5 @@
 import api from './api';
-import type { CVAnalysis, CVUploadResponse, JobDescription, OptimizationReport } from '../models/cv.types';
+import type { CVUploadResponse } from '../models/cv.types';
 
 class CVService {
   /**
@@ -36,64 +36,11 @@ class CVService {
     }
   }
 
-  /**
-   * Get CV analysis by ID
-   */
-  async getAnalysis(analysisId: string): Promise<CVAnalysis | null> {
-    try {
-      const response = await api.get(`/cv/analysis/${analysisId}`);
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch analysis:', error);
-      return null;
-    }
-  }
 
-  /**
-   * Get user's CV analysis history
-   */
-  async getAnalysisHistory(): Promise<CVAnalysis[]> {
-    try {
-      const response = await api.get('/cv/history');
-      return response.data;
-    } catch (error) {
-      console.error('Failed to fetch history:', error);
-      return [];
-    }
-  }
 
-  /**
-   * Optimize CV based on job description
-   */
-  async optimizeCV(
-    analysisId: string,
-    targetJob: JobDescription
-  ): Promise<OptimizationReport | null> {
-    try {
-      const response = await api.post(`/cv/optimize/${analysisId}`, {
-        targetJob,
-      });
-      return response.data;
-    } catch (error) {
-      console.error('CV optimization failed:', error);
-      return null;
-    }
-  }
 
-  /**
-   * Download optimized CV
-   */
-  async downloadOptimizedCV(analysisId: string): Promise<Blob | null> {
-    try {
-      const response = await api.get(`/cv/download/${analysisId}`, {
-        responseType: 'blob',
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Download failed:', error);
-      return null;
-    }
-  }
+
+
 
 }
 

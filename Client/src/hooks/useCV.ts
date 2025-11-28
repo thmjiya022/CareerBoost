@@ -6,22 +6,40 @@ import toast from 'react-hot-toast';
 interface UseCVReturn {
   // State
   analysis: CVAnalysis | null;
-  history: CVAnalysis[];
   loading: boolean;
   uploading: boolean;
   error: string | null;
   
   // Actions
   uploadAndAnalyze: (file: File, jobDescription?: string) => Promise<void>;
-  getAnalysis: (id: string) => Promise<void>;
-  loadHistory: () => Promise<void>;
   clearError: () => void;
-  clearAnalysis: () => void;
+}
+
+const CACHE_KEY = 'careerboost_cv_analysis';
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
+
+interface CachedAnalysis {
+  analysis: CVAnalysis;
+  timestamp: number;
+  fileName: string;
 }
 
 export const useCV = (): UseCVReturn => {
-  const [analysis, setAnalysis] = useState<CVAnalysis | null>(null);
-  const [history, setHistory] = useState<CVAnalysis[]>([]);
+  const [analysis, setAnalysis] = useState<CVAnalysis | null>(() => {
+    // Load from cache on initialization
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      try {
+        const parsedCache: CachedAnalysis = JSON.parse(cached);
+        const isValid = Date.now() - parsedCache.timestamp < CACHE_DURATION;
+        return isValid ? parsedCache.analysis : null;
+      } catch {
+        localStorage.removeItem(CACHE_KEY);
+      }
+    }
+    return null;
+  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,10 +48,6 @@ export const useCV = (): UseCVReturn => {
     setError(null);
   }, []);
 
-  const clearAnalysis = useCallback(() => {
-    setAnalysis(null);
-    setError(null);
-  }, []);
 
   const uploadAndAnalyze = useCallback(async (file: File, jobDescription?: string) => {
     setUploading(true);
@@ -45,10 +59,20 @@ export const useCV = (): UseCVReturn => {
       
       if (result.success && result.analysis) {
         setAnalysis(result.analysis);
+        
+        // Cache the analysis
+        const cacheData: CachedAnalysis = {
+          analysis: result.analysis,
+          timestamp: Date.now(),
+          fileName: file.name
+        };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+        
         toast.success('CV analyzed successfully!');
       } else {
         throw new Error(result.error || 'Analysis failed');
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const errorMessage = err.message || 'Failed to analyze CV';
       setError(errorMessage);
@@ -58,55 +82,17 @@ export const useCV = (): UseCVReturn => {
     }
   }, []);
 
-  const getAnalysis = useCallback(async (id: string) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const result = await cvService.getAnalysis(id);
-      if (result) {
-        setAnalysis(result);
-      } else {
-        throw new Error('Analysis not found');
-      }
-    } catch (err: any) {
-      const errorMessage = err.message || 'Failed to load analysis';
-      setError(errorMessage);
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
-  const loadHistory = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const result = await cvService.getAnalysisHistory();
-      setHistory(result);
-    } catch (err: any) {
-      const errorMessage = err.message || 'Failed to load history';
-      setError(errorMessage);
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   return {
     // State
     analysis,
-    history,
     loading,
     uploading,
     error,
     
     // Actions
     uploadAndAnalyze,
-    getAnalysis,
-    loadHistory,
     clearError,
-    clearAnalysis,
   };
 };
