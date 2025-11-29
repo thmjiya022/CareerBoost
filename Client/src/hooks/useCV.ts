@@ -40,7 +40,7 @@ export const useCV = (): UseCVReturn => {
     return null;
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
