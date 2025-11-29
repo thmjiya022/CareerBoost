@@ -9,6 +9,19 @@ const Landing = () => {
 					Transform your career with AI-powered tools
 				</p>
 
+				<div className="mb-12">
+					<Link
+						to="/dashboard"
+						className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 p-6 rounded-xl transition-all transform hover:scale-105 inline-block shadow-lg"
+					>
+						<div className="text-4xl mb-4">🚀</div>
+						<h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+						<p className="text-gray-200">
+							Access your personalized CareerBoost dashboard with all your tools
+						</p>
+					</Link>
+				</div>
+
 				<div className="grid md:grid-cols-2 gap-8">
 					<Link
 						to="/cv-analyzer"
@@ -23,10 +36,10 @@ const Landing = () => {
 					</Link>
 
 					<Link
-						to="/learn"
+						to="/youtube-learning"
 						className="bg-blue-600 hover:bg-blue-700 p-8 rounded-xl transition-colors"
 					>
-						<div className="text-4xl mb-4">📄</div>
+						<div className="text-4xl mb-4">🎓</div>
 						<h2 className="text-2xl font-bold mb-4">YouTube Learning</h2>
 						<p className="text-gray-200">
 							Explore curated YouTube content to boost your skills

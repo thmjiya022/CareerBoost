@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 import {
 	Search,
 	MapPin,
-	TrendingUp,
 	Clock,
 	ExternalLink,
 	ArrowLeft,
+	ChevronLeft,
+	ChevronRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import jobService, {
 	type Job,
 	type JobSearchParams,
-	type MarketStats,
+	type JobCategory,
 } from "../../services/jobService";
 import toast from "react-hot-toast";
 
 const JobMarket: React.FC = () => {
 	const [jobs, setJobs] = useState<Job[]>([]);
-	const [marketStats, setMarketStats] = useState<MarketStats | null>(null);
 	const [loading, setLoading] = useState(false);
+	const [categories, setCategories] = useState<JobCategory[]>([]);
 	const [searchParams, setSearchParams] = useState<JobSearchParams>({
 		what: "",
 		where: "",
@@ -35,33 +36,32 @@ const JobMarket: React.FC = () => {
 		salary_max: "",
 	});
 	const [totalJobs, setTotalJobs] = useState(0);
-	const [categories] = useState([
-		"Technology",
-		"Healthcare",
-		"Finance",
-		"Education",
-		"Marketing",
-		"Engineering",
-	]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
 
 	useEffect(() => {
-		loadMarketStats();
+		loadCategories();
 		searchJobs();
 	}, []);
 
-	const loadMarketStats = async () => {
+	useEffect(() => {
+		if ((searchParams.page || 1) > 1) {
+			searchJobs();
+		}
+	}, [searchParams.page]);
+
+	const loadCategories = async () => {
 		try {
-			const stats = await jobService.getMarketStats();
-			setMarketStats(stats);
+			const cats = await jobService.getCategories();
+			setCategories(cats);
 		} catch (error) {
-			console.error("Failed to load market stats:", error);
+			console.error("Failed to load categories:", error);
 		}
 	};
 
 	const searchJobs = async () => {
 		setLoading(true);
 		try {
-			// Build search parameters with filters
 			const searchQuery: JobSearchParams = {
 				...searchParams,
 				...(filters.full_time && { full_time: 1 }),
@@ -75,6 +75,11 @@ const JobMarket: React.FC = () => {
 			const response = await jobService.searchJobs(searchQuery);
 			setJobs(response.results || []);
 			setTotalJobs(response.count || 0);
+
+			const resultsPerPage = searchParams.results_per_page || 20;
+			const totalPagesCalc = Math.ceil((response.count || 0) / resultsPerPage);
+			setTotalPages(totalPagesCalc);
+			setCurrentPage(searchParams.page || 1);
 		} catch (error) {
 			toast.error("Failed to fetch jobs");
 			console.error("Job search error:", error);
@@ -86,6 +91,12 @@ const JobMarket: React.FC = () => {
 	const handleSearch = () => {
 		setSearchParams((prev) => ({ ...prev, page: 1 }));
 		searchJobs();
+	};
+
+	const handlePageChange = (newPage: number) => {
+		if (newPage >= 1 && newPage <= totalPages) {
+			setSearchParams((prev) => ({ ...prev, page: newPage }));
+		}
 	};
 
 	const formatSalary = (min?: number, max?: number) => {
@@ -112,7 +123,6 @@ const JobMarket: React.FC = () => {
 	return (
 		<div className="min-h-screen bg-gray-900 text-white p-6">
 			<div className="max-w-7xl mx-auto">
-				{/* Header with Navigation */}
 				<div className="flex items-center gap-4 mb-8">
 					<Link
 						to="/"
@@ -127,94 +137,20 @@ const JobMarket: React.FC = () => {
 							Explore opportunities and market insights across South Africa
 						</p>
 					</div>
-				</div>
-
-				{/* Market Stats */}
-				{marketStats && (
-					<div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-						<div className="bg-blue-600 rounded-xl p-6 text-center">
-							<div className="text-3xl font-bold mb-2">
-								{marketStats.activeJobs.toLocaleString()}
-							</div>
-							<div className="text-blue-200 text-sm">Active Opportunities</div>
-						</div>
-						<div className="bg-green-600 rounded-xl p-6 text-center">
-							<div className="text-3xl font-bold mb-2">
-								{marketStats.entryLevelJobs}
-							</div>
-							<div className="text-green-200 text-sm">Entry-Level Jobs</div>
-						</div>
-						<div className="bg-purple-600 rounded-xl p-6 text-center">
-							<div className="text-3xl font-bold mb-2">
-								{marketStats.internships}
-							</div>
-							<div className="text-purple-200 text-sm">Internships</div>
-						</div>
-						<div className="bg-orange-600 rounded-xl p-6 text-center">
-							<div className="text-3xl font-bold mb-2">
-								{marketStats.newThisWeek}
-							</div>
-							<div className="text-orange-200 text-sm">Posted This Week</div>
-						</div>
-					</div>
-				)}
-
-				{/* Trending Skills */}
-				{marketStats && (
-					<div className="bg-gray-800 rounded-xl p-6 mb-8">
-						<div className="flex items-center gap-2 mb-4">
-							<TrendingUp className="h-6 w-6 text-blue-400" />
-							<h2 className="text-xl font-semibold">Trending Skills in SA</h2>
-						</div>
-						<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-							{marketStats.trendingSkills.map((skill, index) => (
-								<div key={index} className="bg-gray-700 rounded-lg p-4">
-									<div className="font-medium text-blue-400">{skill.skill}</div>
-									<div className="text-sm text-green-400">
-										{skill.growth} growth
-									</div>
-									<div className="text-xs text-gray-400">
-										Demand: {skill.demand}%
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
-				)}
-
-				{/* Salary Ranges */}
-				{marketStats && (
-					<div className="bg-gray-800 rounded-xl p-6 mb-8">
-						<h3 className="text-lg font-semibold mb-4">
-							💰 Entry-Level Salary Ranges (ZAR/month)
-						</h3>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-							{marketStats.salaryRanges.map((salary, index) => (
-								<div key={index} className="bg-gray-700 rounded-lg p-4">
-									<div className="font-medium">{salary.role}</div>
-									<div className="text-2xl font-bold text-blue-400">
-										R{salary.min.toLocaleString()} - R
-										{salary.max.toLocaleString()}
-									</div>
-									<div className="text-sm text-gray-400">
-										Avg: R{salary.average.toLocaleString()}
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
-				)}
-
-				{/* Enhanced Search Section */}
+				</div>{" "}
 				<div className="bg-gray-800 rounded-xl p-6 mb-8">
 					<h2 className="text-xl font-semibold mb-6">
 						🔍 Find Your Perfect Job
 					</h2>
 
-					{/* Results Count */}
 					{totalJobs > 0 && (
 						<div className="mb-4 text-sm text-gray-400">
 							Found {totalJobs.toLocaleString()} jobs
+							{totalPages > 1 && (
+								<span className="ml-2">
+									• Showing page {currentPage} of {totalPages}
+								</span>
+							)}
 						</div>
 					)}
 
@@ -262,7 +198,6 @@ const JobMarket: React.FC = () => {
 						</button>
 					</div>
 
-					{/* Advanced Filters */}
 					<div className="border-t border-gray-700 pt-4">
 						<h3 className="text-sm font-medium text-gray-300 mb-4">
 							Filters & Sort
@@ -344,7 +279,6 @@ const JobMarket: React.FC = () => {
 						</div>
 					</div>
 
-					{/* Category Quick Filters */}
 					<div className="flex flex-wrap gap-2">
 						<button
 							onClick={() => setSearchParams((prev) => ({ ...prev, what: "" }))}
@@ -358,23 +292,21 @@ const JobMarket: React.FC = () => {
 						</button>
 						{categories.map((category) => (
 							<button
-								key={category}
+								key={category.tag}
 								onClick={() =>
-									setSearchParams((prev) => ({ ...prev, what: category }))
+									setSearchParams((prev) => ({ ...prev, what: category.label }))
 								}
 								className={`px-3 py-1 rounded-full text-sm transition-colors ${
-									searchParams.what === category
+									searchParams.what === category.label
 										? "bg-blue-600 text-white"
 										: "bg-gray-700 text-gray-300 hover:bg-gray-600"
 								}`}
 							>
-								{category}
+								{category.label}
 							</button>
 						))}
 					</div>
 				</div>
-
-				{/* Job Listings */}
 				<div className="space-y-4">
 					{loading ? (
 						<div className="text-center py-12">
@@ -456,6 +388,70 @@ const JobMarket: React.FC = () => {
 						))
 					)}
 				</div>
+				{!loading && jobs.length > 0 && totalPages > 1 && (
+					<div className="flex items-center justify-between mt-8 bg-gray-800 rounded-xl p-6">
+						<div className="text-sm text-gray-400">
+							Showing page {currentPage} of {totalPages} (
+							{totalJobs.toLocaleString()} total jobs)
+						</div>
+						<div className="flex items-center gap-2">
+							<button
+								onClick={() => handlePageChange(currentPage - 1)}
+								disabled={currentPage <= 1}
+								className="flex items-center gap-1 px-3 py-2 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-500 text-white rounded-lg transition-colors disabled:cursor-not-allowed"
+							>
+								<ChevronLeft className="h-4 w-4" />
+								Previous
+							</button>
+
+							<div className="flex items-center gap-1">
+								{(() => {
+									const maxPagesToShow = 5;
+									let startPage = Math.max(
+										1,
+										currentPage - Math.floor(maxPagesToShow / 2)
+									);
+									const endPage = Math.min(
+										totalPages,
+										startPage + maxPagesToShow - 1
+									);
+
+									if (endPage - startPage + 1 < maxPagesToShow) {
+										startPage = Math.max(1, endPage - maxPagesToShow + 1);
+									}
+
+									const pages = [];
+									for (let i = startPage; i <= endPage; i++) {
+										pages.push(i);
+									}
+
+									return pages.map((pageNum) => (
+										<button
+											key={`page-${pageNum}`}
+											onClick={() => handlePageChange(pageNum)}
+											className={`px-3 py-2 rounded-lg transition-colors ${
+												pageNum === currentPage
+													? "bg-blue-600 text-white"
+													: "bg-gray-700 hover:bg-gray-600 text-gray-300"
+											}`}
+										>
+											{pageNum}
+										</button>
+									));
+								})()}
+							</div>
+
+							<button
+								onClick={() => handlePageChange(currentPage + 1)}
+								disabled={currentPage >= totalPages}
+								className="flex items-center gap-1 px-3 py-2 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-500 text-white rounded-lg transition-colors disabled:cursor-not-allowed"
+							>
+								Next
+								<ChevronRight className="h-4 w-4" />
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

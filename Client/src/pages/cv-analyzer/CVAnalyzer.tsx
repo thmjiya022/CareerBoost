@@ -96,7 +96,7 @@ const CVAnalyzer: React.FC = () => {
 						) : (
 							<>
 								{/* Match Score */}
-								<div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl p-6 text-center">
+								<div className="bg-linear-to-br from-purple-600 to-blue-600 rounded-xl p-6 text-center">
 									<h3 className="text-lg font-medium mb-4">CV Match Score</h3>
 									<div className="flex justify-center mb-4">
 										<CircularProgress
