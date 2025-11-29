@@ -59,7 +59,6 @@ export interface FlashcardsTabProps {
     flashcards: Flashcard[];
 }
 
-// API Response Types
 export interface ProcessVideoResponse {
     success: boolean;
     lesson?: Lesson;

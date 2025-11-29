@@ -15,11 +15,9 @@ const youtubeRouter = require("./routes/youtube");
 
 const app = express();
 
-// Security middleware
 app.use(helmet());
 app.use(compression());
 
-// CORS configuration
 app.use(
 	cors({
 		origin: [
@@ -32,21 +30,18 @@ app.use(
 	})
 );
 
-// Basic middleware
 app.use(logger("dev"));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: false, limit: "10mb" }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Routes
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/cv", cvRouter);
 app.use("/youtube", youtubeRouter);
 app.use("/api/jobs", jobsRouter);
 
-// 404 handler
 app.use((req, res, next) => {
 	res.status(404).json({
 		success: false,
@@ -54,7 +49,6 @@ app.use((req, res, next) => {
 	});
 });
 
-// Error handler
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 

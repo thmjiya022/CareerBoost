@@ -4,14 +4,12 @@ import youTubeService from '../services/youTubeService';
 import toast from 'react-hot-toast';
 
 interface UseYouTubeReturn {
-    // State
     lessons: Lesson[];
     selectedLesson: Lesson | null;
     loading: boolean;
     processing: boolean;
     error: string | null;
 
-    // Actions
     processVideo: (videoUrl: string, userId?: number) => Promise<void>;
     selectLesson: (lesson: Lesson | null) => void;
     deleteLesson: (id: number) => Promise<void>;
@@ -20,7 +18,6 @@ interface UseYouTubeReturn {
 }
 
 const CACHE_KEY = 'youtube_lessons';
-const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
 interface CachedLessons {
     lessons: Lesson[];
@@ -29,7 +26,6 @@ interface CachedLessons {
 
 export const useYouTube = (): UseYouTubeReturn => {
     const [lessons, setLessons] = useState<Lesson[]>(() => {
-        // Load from cache on initialization
         const cached = localStorage.getItem(CACHE_KEY);
         if (cached) {
             try {
@@ -48,7 +44,6 @@ export const useYouTube = (): UseYouTubeReturn => {
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Cache lessons whenever they change
     useEffect(() => {
         if (lessons.length > 0) {
             const cacheData: CachedLessons = {
@@ -75,7 +70,6 @@ export const useYouTube = (): UseYouTubeReturn => {
             const result = await youTubeService.processVideo(videoUrl, userId);
 
             if (result.success && result.lesson) {
-                // Add new lesson to the beginning of the list
                 setLessons((prev) => [result.lesson!, ...prev]);
                 setSelectedLesson(result.lesson!);
 
@@ -100,10 +94,8 @@ export const useYouTube = (): UseYouTubeReturn => {
             const result = await youTubeService.deleteLesson(id);
 
             if (result.success) {
-                // Remove lesson from list
                 setLessons((prev) => prev.filter((lesson) => lesson.id !== id));
 
-                // Clear selection if deleted lesson was selected
                 if (selectedLesson?.id === id) {
                     setSelectedLesson(null);
                 }
@@ -143,14 +135,12 @@ export const useYouTube = (): UseYouTubeReturn => {
     }, []);
 
     return {
-        // State
         lessons,
         selectedLesson,
         loading,
         processing,
         error,
 
-        // Actions
         processVideo,
         selectLesson,
         deleteLesson,
