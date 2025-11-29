@@ -22,6 +22,17 @@ const Landing = () => {
 						</p>
 					</Link>
 
+                    <Link
+                        to="/learn"
+                        className="bg-blue-600 hover:bg-blue-700 p-8 rounded-xl transition-colors"
+                    >
+                        <div className="text-4xl mb-4">📄</div>
+                        <h2 className="text-2xl font-bold mb-4">YouTube Learning</h2>
+                        <p className="text-gray-200">
+                            Explore curated YouTube content to boost your skills
+                        </p>
+                    </Link>
+
 					<div className="bg-gray-800 p-8 rounded-xl">
 						<div className="text-4xl mb-4">🎓</div>
 						<h2 className="text-2xl font-bold mb-4">Learning Hub</h2>
