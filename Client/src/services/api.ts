@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://careerboost-8nv4.onrender.com';
 
 const api: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
