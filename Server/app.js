@@ -24,7 +24,7 @@ app.use(
 			"http://localhost:5173",
 			"http://localhost:5174",
 			"http://localhost:3000",
-			process.env.CLIENT_URL,
+			"https://career-boost-ten.vercel.app",
 		].filter(Boolean),
 		credentials: true,
 	})
