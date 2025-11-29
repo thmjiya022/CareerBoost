@@ -37,7 +37,6 @@ const DashboardCard = ({
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 		>
-			{/* Glow Effect */}
 			<div
 				className={`absolute inset-0 ${
 					isHovered ? glowColor : "opacity-0"
@@ -46,18 +45,15 @@ const DashboardCard = ({
 				}`}
 			/>
 
-			{/* Card */}
 			<div
 				className={`relative bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 h-full transition-all duration-300 hover:border-gray-700/50 ${
 					isHovered ? "transform scale-105 shadow-2xl" : ""
 				}`}
 			>
-				{/* Background Gradient */}
 				<div
 					className={`absolute inset-0 ${gradient} opacity-10 rounded-2xl`}
 				/>
 
-				{/* Content */}
 				<div className="relative z-10">
 					<div className="flex items-center justify-between mb-4">
 						<div className={`p-3 rounded-xl ${gradient} bg-opacity-20`}>
@@ -110,7 +106,7 @@ const Dashboard = () => {
 			description:
 				"Learn new skills through curated YouTube content and interactive lessons",
 			icon: <GraduationCap className="w-6 h-6 text-green-400" />,
-			href: "/youtube-learning",
+			href: "/Learn",
 			stats: "5 courses in progress",
 			gradient: "bg-gradient-to-br from-green-500 to-green-700",
 			glowColor: "bg-green-500/20",
@@ -128,19 +124,17 @@ const Dashboard = () => {
 	];
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
-			{/* Background Elements */}
+		<div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
 			<div className="absolute top-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
 			<div className="absolute top-1/4 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl translate-x-1/2" />
 			<div className="absolute bottom-0 left-1/3 w-80 h-80 bg-green-500/10 rounded-full blur-3xl translate-y-1/2" />
 
-			{/* Header */}
 			<div className="relative z-10 pt-20 pb-12">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="text-center">
 						<h1 className="text-5xl font-bold text-white mb-6">
 							Welcome to{" "}
-							<span className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
+							<span className="bg-linear-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
 								CareerBoost
 							</span>
 						</h1>
@@ -153,7 +147,6 @@ const Dashboard = () => {
 				</div>
 			</div>
 
-			{/* Dashboard Cards */}
 			<div className="relative z-10 pb-20">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -164,7 +157,6 @@ const Dashboard = () => {
 				</div>
 			</div>
 
-			{/* Quick Actions */}
 			<div className="relative z-10 pb-20">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-8">
