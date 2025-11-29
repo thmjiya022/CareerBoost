@@ -32,28 +32,31 @@ const LessonContent: React.FC<LessonContentProps> = ({
 	];
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-3 sm:space-y-4">
 			{/* Tab Navigation */}
-			<div className="bg-gray-800 border border-[#2A2B4A] rounded-lg p-1 flex gap-1">
-				{tabs.map((tab) => {
-					const Icon = tab.icon;
-					return (
-						<button
-							key={tab.id}
-							onClick={() => setActiveTab(tab.id)}
-							className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-colors ${
-								activeTab === tab.id
-									? "bg-[#4F46E5] text-white"
-									: "text-gray-400 hover:text-white hover:bg-[#2A2B4A]"
-							}`}
-						>
-							<Icon className="w-4 h-4" />
-							<span className="font-medium">{tab.label}</span>
-						</button>
-					);
-				})}
-			</div>
-
+			<div className="bg-gray-800 border border-[#2A2B4A] rounded-lg p-1">
+				{/* Mobile: Grid layout for tabs */}
+				<div className="grid grid-cols-2 sm:flex gap-1">
+					{tabs.map((tab) => {
+						const Icon = tab.icon;
+						return (
+							<button
+								key={tab.id}
+								onClick={() => setActiveTab(tab.id)}
+								className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-3 sm:py-3 rounded-md transition-colors text-sm sm:text-sm ${
+									activeTab === tab.id
+										? "bg-[#4F46E5] text-white"
+										: "text-gray-400 hover:text-white hover:bg-[#2A2B4A]"
+								}`}
+							>
+								{/* Hide icon on mobile, show on desktop */}
+								<Icon className="hidden sm:block w-4 h-4" />
+								<span className="font-medium">{tab.label}</span>
+							</button>
+						);
+					})}
+				</div>
+			</div>{" "}
 			{/* Tab Content */}
 			<div>
 				{activeTab === "summary" && (

@@ -42,20 +42,20 @@ const YouTubeLearning: React.FC = () => {
 	};
 
 	return (
-		<div className="p-6 space-y-6 min-h-screen bg-slate-900 text-white overflow-hidden">
+		<div className="p-3 sm:p-6 space-y-4 sm:space-y-6 min-h-screen bg-slate-900 text-white overflow-hidden">
 			<div className="max-w-7xl mx-auto">
-				<div className="mb-8">
-					<h1 className="text-4xl font-bold text-white mb-2">
+				<div className="mb-6 sm:mb-8">
+					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
 						YouTube Learning
 					</h1>
-					<p className="text-gray-400">
+					<p className="text-gray-400 text-sm sm:text-base">
 						Transform any YouTube video into structured learning content
 					</p>
 				</div>
 
 				{error && (
-					<div className="mb-6 p-4 bg-red-500/10 border border-red-500 rounded-lg">
-						<p className="text-red-400 text-sm">{error}</p>
+					<div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-500/10 border border-red-500 rounded-lg">
+						<p className="text-red-400 text-xs sm:text-sm">{error}</p>
 					</div>
 				)}
 
@@ -66,14 +66,14 @@ const YouTubeLearning: React.FC = () => {
 					isProcessing={processing}
 				/>
 
-				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
 					<LessonList
 						lessons={lessons}
 						selectedLesson={selectedLesson}
 						onSelectLesson={selectLesson}
 					/>
 
-					<div className="lg:col-span-2">
+					<div className="lg:col-span-2 order-first lg:order-last">
 						{selectedLesson ? (
 							<LessonContent
 								lesson={selectedLesson}
