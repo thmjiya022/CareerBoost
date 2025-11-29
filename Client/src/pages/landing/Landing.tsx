@@ -22,24 +22,28 @@ const Landing = () => {
 						</p>
 					</Link>
 
-                    <Link
-                        to="/learn"
-                        className="bg-blue-600 hover:bg-blue-700 p-8 rounded-xl transition-colors"
-                    >
-                        <div className="text-4xl mb-4">📄</div>
-                        <h2 className="text-2xl font-bold mb-4">YouTube Learning</h2>
-                        <p className="text-gray-200">
-                            Explore curated YouTube content to boost your skills
-                        </p>
-                    </Link>
-
-					<div className="bg-gray-800 p-8 rounded-xl">
-						<div className="text-4xl mb-4">🎓</div>
-						<h2 className="text-2xl font-bold mb-4">Learning Hub</h2>
-						<p className="text-gray-400">
-							Coming soon - Personalized learning paths
+					<Link
+						to="/learn"
+						className="bg-blue-600 hover:bg-blue-700 p-8 rounded-xl transition-colors"
+					>
+						<div className="text-4xl mb-4">📄</div>
+						<h2 className="text-2xl font-bold mb-4">YouTube Learning</h2>
+						<p className="text-gray-200">
+							Explore curated YouTube content to boost your skills
 						</p>
-					</div>
+					</Link>
+
+					<Link
+						to="/job-market"
+						className="bg-green-600 hover:bg-green-700 p-8 rounded-xl transition-colors"
+					>
+						<div className="text-4xl mb-4">💼</div>
+						<h2 className="text-2xl font-bold mb-4">Job Market Intelligence</h2>
+						<p className="text-gray-200">
+							Explore South African job opportunities, salary insights, and
+							market trends
+						</p>
+					</Link>
 				</div>
 			</div>
 		</div>

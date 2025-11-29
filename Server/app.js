@@ -10,6 +10,7 @@ require("dotenv").config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const cvRouter = require("./routes/cv");
+const jobsRouter = require("./routes/jobs");
 const youtubeRouter = require("./routes/youtube");
 
 const app = express();
@@ -21,7 +22,12 @@ app.use(compression());
 // CORS configuration
 app.use(
 	cors({
-		origin: process.env.CLIENT_URL || "http://localhost:5173",
+		origin: [
+			"http://localhost:5173",
+			"http://localhost:5174",
+			"http://localhost:3000",
+			process.env.CLIENT_URL,
+		].filter(Boolean),
 		credentials: true,
 	})
 );
@@ -38,6 +44,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/cv", cvRouter);
 app.use("/youtube", youtubeRouter);
+app.use("/api/jobs", jobsRouter);
 
 // 404 handler
 app.use((req, res, next) => {
