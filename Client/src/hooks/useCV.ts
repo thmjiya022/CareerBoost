@@ -38,7 +38,7 @@ export const useCV = (): UseCVReturn => {
     return null;
   });
   
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
