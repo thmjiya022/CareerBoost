@@ -119,7 +119,7 @@ const JobMarket: React.FC = () => {
 	};
 
 	return (
-		<div className="p-6 space-y-6 h-full bg-slate-900 text-white overflow-hidden">
+		<div className="p-6 space-y-6 min-h-screen bg-slate-900 text-white overflow-hidden">
 			<div className="max-w-7xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
 					<div>

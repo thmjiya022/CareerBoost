@@ -13,10 +13,10 @@ const DashboardLayout = () => {
 				setIsMobileOpen={setIsMobileMenuOpen}
 			/>
 
-			<div className="flex-1 flex flex-col overflow-hidden md:ml-0">
+			<div className="flex-1 flex flex-col overflow-hidden lg:ml-64 md:ml-16">
 				<div className="md:hidden bg-gray-900 border-b border-gray-800 px-4 py-3 flex items-center justify-between">
 					<div className="flex items-center">
-						<div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+						<div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
 							<span className="text-white font-bold text-sm">CB</span>
 						</div>
 						<span className="ml-3 text-lg font-semibold text-white">
@@ -36,7 +36,7 @@ const DashboardLayout = () => {
 				</div>
 
 				<main className="flex-1 overflow-auto bg-gray-950">
-					<div className="h-full">
+					<div className="min-h-screen">
 						<Outlet />
 					</div>
 				</main>

@@ -4,7 +4,6 @@ import {
 	FileText,
 	Briefcase,
 	GraduationCap,
-	Youtube,
 	BarChart3,
 	Settings,
 	LogOut,
@@ -44,12 +43,6 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }: SidebarProps) => {
 			current: location.pathname === "/dashboard/learn",
 		},
 		{
-			name: "YouTube Learning",
-			href: "/dashboard/youtube",
-			icon: Youtube,
-			current: location.pathname === "/dashboard/youtube",
-		},
-		{
 			name: "Analytics",
 			href: "/dashboard/analytics",
 			icon: BarChart3,
@@ -72,7 +65,7 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }: SidebarProps) => {
 				</div>
 			)}
 
-			<div className="hidden lg:flex flex-col h-full w-64 bg-gray-900 border-r border-gray-800">
+			<div className="hidden lg:flex fixed top-0 left-0 z-40 flex-col h-full w-64 bg-gray-900 border-r border-gray-800">
 				<div className="flex items-center px-6 py-6 border-b border-gray-800">
 					<div className="flex items-center">
 						<div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
@@ -135,7 +128,7 @@ const Sidebar = ({ isMobileOpen, setIsMobileOpen }: SidebarProps) => {
 				</div>
 			</div>
 
-			<div className="hidden md:flex lg:hidden flex-col h-full w-16 bg-gray-900 border-r border-gray-800">
+			<div className="hidden md:flex lg:hidden fixed top-0 left-0 z-40 flex-col h-full w-16 bg-gray-900 border-r border-gray-800">
 				<div className="flex items-center justify-center px-3 py-6 border-b border-gray-800">
 					<div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
 						<span className="text-white font-bold text-sm">CB</span>

@@ -28,11 +28,10 @@ const App = () => {
 					<Route path="cv-analyzer" element={<CVAnalyzer />} />
 					<Route path="job-market" element={<JobMarket />} />
 					<Route path="learn" element={<YouTubeLearning />} />
-					<Route path="youtube" element={<YouTubeLearning />} />
 					<Route
 						path="analytics"
 						element={
-							<div className="p-6 space-y-6 h-full bg-slate-900 text-white overflow-hidden">
+							<div className="p-6 space-y-6 min-h-screen bg-slate-900 text-white overflow-hidden">
 								<h1 className="text-white text-2xl">Analytics Coming Soon</h1>
 							</div>
 						}

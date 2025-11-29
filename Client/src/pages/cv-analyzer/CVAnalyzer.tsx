@@ -22,7 +22,7 @@ const CVAnalyzer: React.FC = () => {
 	};
 
 	return (
-		<div className="p-6 space-y-6 h-full bg-slate-900 text-white overflow-hidden ">
+		<div className="p-6 space-y-6 min-h-screen bg-slate-900 text-white overflow-hidden ">
 			<div className="mb-8">
 				<h1 className="text-3xl font-bold mb-2">CV Analyzer</h1>
 				<p className="text-gray-400">
