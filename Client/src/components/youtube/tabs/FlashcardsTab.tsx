@@ -35,7 +35,7 @@ const FlashcardsTab: React.FC<FlashcardsTabProps> = ({ flashcards }) => {
                                     {!flippedCards[idx] ? (
                                         <>
                                             <p className="text-[#4F46E5] font-semibold text-sm mb-2">Question:</p>
-                                            <p className="text-white text-base">{card.front}</p>
+                                            <p className="text-white text-base">What is {card.front}</p>
                                         </>
                                     ) : (
                                         <>

@@ -58,3 +58,22 @@ export interface QuizTabProps {
 export interface FlashcardsTabProps {
     flashcards: Flashcard[];
 }
+
+// API Response Types
+export interface ProcessVideoResponse {
+    success: boolean;
+    lesson?: Lesson;
+    error?: string;
+}
+
+export interface GetLessonsResponse {
+    success: boolean;
+    lessons?: Lesson[];
+    error?: string;
+}
+
+export interface DeleteLessonResponse {
+    success: boolean;
+    message?: string;
+    error?: string;
+}
