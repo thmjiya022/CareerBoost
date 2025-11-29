@@ -57,7 +57,7 @@ export interface JobCategory {
 }
 
 class JobService {
-  private readonly BASE_URL = 'http://localhost:5000/api';
+  private readonly BASE_URL = import.meta.env.VITE_API_URL + "/api";
   
   private cache: Map<string, { data: any; timestamp: number }> = new Map();
   private readonly CACHE_TTL = 10 * 60 * 60 * 1000;
@@ -88,7 +88,6 @@ class JobService {
       });
       
       const response = await axios.get(`${this.BASE_URL}/jobs/search?${queryParams}`, {
-        timeout: 30000,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
