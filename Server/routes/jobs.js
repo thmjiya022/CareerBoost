@@ -44,7 +44,6 @@ router.get("/search", async (req, res) => {
 	}
 
 	try {
-
 		const pageNum = req.query.page || 1;
 		const { page, ...queryParams } = req.query;
 
@@ -64,11 +63,6 @@ router.get("/search", async (req, res) => {
 				"User-Agent": "CareerBoost-App/1.0",
 			},
 		});
-
-			`Successfully fetched ${
-				response.data?.results?.length || 0
-			} jobs from Adzuna`
-		);
 
 		cache.set(cacheKey, { data: response.data, timestamp: Date.now() });
 		res.json(response.data);
@@ -90,7 +84,6 @@ router.get("/categories", async (req, res) => {
 	}
 
 	try {
-
 		const adzunaUrl = buildAdzunaUrl("categories");
 
 		const httpsAgent = new https.Agent({
@@ -107,7 +100,6 @@ router.get("/categories", async (req, res) => {
 				"User-Agent": "CareerBoost-App/1.0",
 			},
 		});
-
 
 		const categories = response.data?.results || [];
 		cache.set(cacheKey, { data: categories, timestamp: Date.now() });

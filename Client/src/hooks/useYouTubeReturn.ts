@@ -18,7 +18,7 @@ interface UseYouTubeReturn {
 }
 
 const CACHE_KEY = 'youtube_lessons';
-
+const CACHE_DURATION = 1000 * 60 * 60;
 interface CachedLessons {
     lessons: Lesson[];
     timestamp: number;
