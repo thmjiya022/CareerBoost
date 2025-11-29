@@ -5,7 +5,6 @@ import {
 	FileText,
 	GraduationCap,
 	BarChart3,
-	Plus,
 	ArrowRight,
 } from "lucide-react";
 
