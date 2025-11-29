@@ -1,184 +1,152 @@
-# CareerBoost AI
+# CareerBoost By PhantomDev
 
-[Live App](https://career-boost-ten.vercel.app/)
+**[🌐 Live Demo](https://career-boost-ten.vercel.app/)**
 
----
+**AI-Powered Career Development Platform for South African Youth Unemployment Hackathon**
 
-## Overview
-
-**CareerBoost AI** is a digital career coach for young people in South Africa. It helps users improve their CVs, learn new skills, and prepare for jobs using AI and personalized learning plans. By combining CV analysis, YouTube-based learning, and job market insights, CareerBoost AI empowers users to become job-ready within 30 days.
+A comprehensive web application that empowers job seekers with AI-driven CV analysis, real-time job market intelligence, and personalized skill learning through YouTube content.
 
 ---
 
-## Purpose
+## **Problem Addressed**
+South African youth unemployment crisis requires innovative career development tools that are:
+- **Accessible**: Free, web-based platform
+- **AI-Powered**: Modern technology for personalized guidance
+- **Real-Time**: Live job market data and opportunities
+- **Skill-Focused**: Learning pathways tied to market demands
 
-Many young South Africans face challenges such as:
-
-* Not knowing how to improve their CV
-* Uncertainty about which skills are in demand
-* Confusion about what to learn first
-* Difficulty finding matching jobs
-* Lack of guidance for interviews
-
-CareerBoost AI provides step-by-step guidance to solve these challenges. It acts like a 24/7 career coach tailored for the South African job market.
-
----
-
-## Features
-
-### 1. AI CV Analyzer
-
-* Upload your CV and get instant feedback.
-* AI identifies missing skills and suggests improvements.
-* Matches your CV to job descriptions for better results.
-
-### 2. Personalized Learning Roadmaps
-
-* Custom learning plan based on your target career.
-* Daily checklist and progress tracking.
-* Automatically updates as you complete lessons.
-
-### 3. YouTube Learning Extractor
-
-* Convert YouTube videos into structured study materials.
-* Generates summaries, flashcards, and quizzes.
-* Integrates lessons into your learning plan automatically.
-
-### 4. South African Job Market Insights
-
-* Shows in-demand jobs, salaries, and required skills.
-* Helps you choose a realistic career path with opportunities.
+## **Innovation Highlights**
+- **AI-First Approach**: Leveraging latest Gemini 2.0-flash for intelligent analysis
+- **Real Market Data**: Direct integration with job market APIs
+- **Learning Integration**: YouTube-to-education pipeline for skill development
+- **Mobile Responsive**: Accessible on any device for wider reach
 
 ---
 
-## Tech Stack
+## Key Features
 
-**Frontend:**
+### **CV Analyzer**
+- **AI-Powered Analysis**: Upload CV and get instant feedback using Google Gemini 2.0-flash
+- **Skills Gap Detection**: Identify missing skills for target positions
+- **Actionable Insights**: Personalized recommendations to improve your resume
+- **PDF Support**: Seamless PDF parsing and text extraction
 
-* React
-* TypeScript
-* Tailwind CSS
+### **Job Market Intelligence**
+- **Real Job Data**: Live integration with Adzuna Jobs API for South African market
+- **Smart Filtering**: Search by location, salary range, job type, and categories
+- **Pagination**: Browse thousands of opportunities efficiently
+- **10-Hour Caching**: Optimized performance with intelligent caching
 
-**Backend:**
+### **YouTube Learning Hub**
+- **AI Content Generation**: Transform any YouTube video into structured learning material
+- **4 Learning Formats**: Summary, detailed notes, flashcards, and interactive quizzes
+- **Skill Development**: Targeted learning based on CV analysis results
+- **Mobile Responsive**: Learn on any device, anywhere
 
-* Node.js
-* Express
-
-**AI Services:**
-
-* Google Generative AI (Gemini 2.0 Flash)
-
-**External APIs:**
-
-* YouTube Data API v3
-
-**Other:**
-
-* Axios (HTTP requests)
-* FormData (CV uploads)
-* Environment variables:
-
-  * `GEMINI_API_KEY` → AI
-  * `YOUTUBE_API_KEY` → YouTube
+### **Smart Dashboard**
+- **Unified Interface**: Access all tools from a beautiful, responsive dashboard
+- **Hover Effects**: Engaging UI with glow animations and smooth transitions
+- **Quick Actions**: Fast access to core features
+- **Progress Tracking**: Monitor your career development journey
 
 ---
 
-## Pages & UX
+## Technology Stack
 
-* **Landing Page:** Hero section, feature cards, CTAs.
-* **Login Page:** Google login, clean layout.
-* **Dashboard:** Career score, progress tracker, quick actions.
-* **CV Analyzer:** Upload CV, view AI feedback, download optimized CV.
-* **Learning Hub:** Timeline, checklist, YouTube lessons.
-* **Job Market:** In-demand jobs, salaries, skill trends.
-* **Mobile-First:** Easy navigation, swipe-friendly, large buttons.
-
----
-
-## Backend Services Overview
-
-### CV Analysis
-
-* Uses Gemini AI to analyze CV text.
-* Returns structured JSON:
-
-```json
-{
-  "matchScore": 0-100,
-  "identifiedSkills": [],
-  "skillsToAdd": [],
-  "recommendations": [],
-  "optimizedSummary": "",
-  "careerReadinessScore": 0
-}
-```
-
-### YouTube Learning
-
-* Fetches video data using YouTube Data API.
-* AI generates educational content:
-
-  * Summary
-  * Notes
-  * Flashcards
-  * Quiz questions
-* Handles fallback if AI fails.
-
-### CV Upload & Analyze
-
-* Upload CV via backend endpoint.
-* Optional job description for targeted feedback.
-* Returns actionable suggestions.
-
----
-
-## Usage
-
-1. Clone the repo:
-
+### **Frontend** (React 19 + TypeScript)
 ```bash
-git clone https://github.com/your-username/careerboost-ai.git
+• React 19 with TypeScript
+• Vite for fast development
+• Tailwind CSS 4 for styling
+• Lucide React icons
+• React Router for navigation
+• Axios for API communication
+• React Hot Toast notifications
 ```
 
-2. Install dependencies:
-
+### **Backend** (Node.js + Express)
 ```bash
-cd careerboost-ai
-npm install
+• Express.js REST API
+• Google Gemini 2.0-flash AI
+• Adzuna Jobs API integration
+• YouTube transcript extraction
+• PDF parsing with pdf-parse
+• Multer for file uploads
+• CORS & security middleware
 ```
 
-3. Set environment variables:
+### **Key APIs & Services**
+- **Google Gemini 2.0-flash**: CV analysis and content generation
+- **Adzuna Jobs API**: Real South African job market data
+- **YouTube Data API**: Video metadata and transcript extraction
 
+---
+
+## Quick Start
+
+### Prerequisites
+- Node.js 18+
+- Google Gemini API key
+- Adzuna API credentials
+
+### 1. Clone & Install
+```bash
+git clone https://github.com/thmjiya022/CareerBoost.git
+cd CareerBoost
+
+cd Server && npm install
+
+cd ../Client && npm install
+```
+
+### 2. Environment Setup
+Create `Server/.env`:
 ```env
 GEMINI_API_KEY=your_gemini_api_key
-YOUTUBE_API_KEY=your_youtube_api_key
+ADZUNA_APP_ID=your_adzuna_app_id
+ADZUNA_APP_KEY=your_adzuna_app_key
+PORT=5000
 ```
 
-4. Run frontend and backend:
-
+### 3. Launch Application
 ```bash
+# Start backend (from Server directory)
+npm run dev
+
+# Start frontend (from Client directory) 
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) to use the app.
+**Access:** Frontend at `http://localhost:5173` | Backend at `http://localhost:5000`
+
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/cv/analyze` | POST | AI-powered CV analysis |
+| `/api/jobs/search` | GET | Search job opportunities |
+| `/api/jobs/categories` | GET | Get job categories |
+| `/api/youtube/analyze` | POST | Generate learning content from YouTube |
 
 ---
 
-## Why This Matters
+## Development Team
 
-* Reduces youth unemployment in South Africa.
-* Makes career guidance accessible and affordable.
-* Turns YouTube videos into effective learning content.
-* Prepares users for real jobs with actionable guidance.
-
----
-
-##  Summary
-
-CareerBoost AI is a **one-stop platform** to help South African youth become job-ready quickly. It combines AI-powered CV analysis, learning roadmaps, YouTube study material, and job market insights into a single easy-to-use platform.
+**Tech Stack Chosen For:**
+- **Performance**: React 19 + Vite for fast development
+- **AI Integration**: Google Gemini for intelligent content analysis  
+- **User Experience**: Tailwind CSS 4 for modern, responsive design
+- **Reliability**: TypeScript for type safety and better code quality
 
 ---
 
-## License
+## Mobile Responsive
 
-MIT License
+Fully optimized for mobile devices with:
+- Touch-friendly interfaces
+- Responsive layouts
+- Mobile-specific navigation
+- Optimized loading and caching
+
+*Ready to empower South African youth with AI-driven career tools!* 🇿🇦
