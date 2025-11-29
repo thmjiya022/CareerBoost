@@ -4,7 +4,7 @@ import { Upload, File, X } from "lucide-react";
 interface FileUploadProps {
 	onFileSelect: (file: File | null) => void;
 	accept?: string;
-	maxSize?: number; // in MB
+	maxSize?: number;
 	disabled?: boolean;
 	selectedFile?: File | null;
 }
@@ -23,13 +23,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
 		(file: File): boolean => {
 			setError(null);
 
-			// Check file size
 			if (file.size > maxSize * 1024 * 1024) {
 				setError(`File size must be less than ${maxSize}MB`);
 				return false;
 			}
 
-			// Check file type
 			const allowedTypes = accept
 				.split(",")
 				.map((type) => type.trim().toLowerCase());
@@ -70,7 +68,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
 				onFileSelect(file);
 			}
 
-			// Reset input
 			e.target.value = "";
 		},
 		[onFileSelect, validateFile]

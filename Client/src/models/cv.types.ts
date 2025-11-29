@@ -1,4 +1,4 @@
-// CV Analysis Types
+
 export interface CVFile {
   name: string;
   size: number;

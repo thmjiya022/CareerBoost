@@ -148,7 +148,7 @@ const Landing: React.FC = () => {
 
 					<div className="flex flex-wrap gap-4 justify-center">
 						<Link
-							to="/cv-analyzer"
+							to="/login"
 							className="px-8 py-4 text-lg bg-linear-to-r from-blue-500 to-blue-600 rounded-full font-bold hover:shadow-xl hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
 						>
 							Start Your Journey
@@ -256,7 +256,7 @@ const Landing: React.FC = () => {
 					</div>
 					<div className="text-center mt-12">
 						<Link
-							to="/features"
+							to="/login"
 							className="inline-flex items-center px-8 py-4 border-2 border-blue-500/50 rounded-full font-semibold text-blue-400 hover:bg-blue-500/10 hover:border-blue-500 transition-all duration-300"
 						>
 							Explore All Features
@@ -368,7 +368,7 @@ const Landing: React.FC = () => {
 									of their future with CareerBoost AI.
 								</p>
 								<Link
-									to="/cv-analyzer"
+									to="/login"
 									className="inline-block bg-linear-to-r from-blue-500 to-emerald-500 text-white px-8 py-4 rounded-full font-bold hover:shadow-xl hover:shadow-blue-500/50 hover:-translate-y-1 transition-all duration-300"
 								>
 									Get Started

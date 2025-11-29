@@ -40,13 +40,10 @@ router.get("/search", async (req, res) => {
 	const cached = cache.get(cacheKey);
 
 	if (cached && isValidCache(cached.timestamp)) {
-		console.log("Returning cached job search data");
 		return res.json(cached.data);
 	}
 
 	try {
-		console.log("Fetching job data from Adzuna API...");
-
 		const pageNum = req.query.page || 1;
 		const { page, ...queryParams } = req.query;
 
@@ -67,12 +64,6 @@ router.get("/search", async (req, res) => {
 			},
 		});
 
-		console.log(
-			`Successfully fetched ${
-				response.data?.results?.length || 0
-			} jobs from Adzuna`
-		);
-
 		cache.set(cacheKey, { data: response.data, timestamp: Date.now() });
 		res.json(response.data);
 	} catch (error) {
@@ -89,13 +80,10 @@ router.get("/categories", async (req, res) => {
 	const cached = cache.get(cacheKey);
 
 	if (cached && isValidCache(cached.timestamp)) {
-		console.log("Returning cached categories data");
 		return res.json(cached.data);
 	}
 
 	try {
-		console.log("Fetching categories from Adzuna API...");
-
 		const adzunaUrl = buildAdzunaUrl("categories");
 
 		const httpsAgent = new https.Agent({
@@ -112,8 +100,6 @@ router.get("/categories", async (req, res) => {
 				"User-Agent": "CareerBoost-App/1.0",
 			},
 		});
-
-		console.log("Successfully fetched categories from Adzuna");
 
 		const categories = response.data?.results || [];
 		cache.set(cacheKey, { data: categories, timestamp: Date.now() });

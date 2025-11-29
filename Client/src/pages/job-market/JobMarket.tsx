@@ -4,11 +4,9 @@ import {
 	MapPin,
 	Clock,
 	ExternalLink,
-	ArrowLeft,
 	ChevronLeft,
 	ChevronRight,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import jobService, {
 	type Job,
 	type JobSearchParams,
@@ -121,16 +119,9 @@ const JobMarket: React.FC = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-900 text-white p-6">
+		<div className="p-6 space-y-6 h-full bg-slate-900 text-white overflow-hidden">
 			<div className="max-w-7xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
-					<Link
-						to="/"
-						className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors flex items-center gap-2"
-					>
-						<ArrowLeft className="h-5 w-5" />
-						<span>Back to Home</span>
-					</Link>
 					<div>
 						<h1 className="text-3xl font-bold mb-2">Job Market Intelligence</h1>
 						<p className="text-gray-400">

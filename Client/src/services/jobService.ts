@@ -60,7 +60,7 @@ class JobService {
   private readonly BASE_URL = 'http://localhost:5000/api';
   
   private cache: Map<string, { data: any; timestamp: number }> = new Map();
-  private readonly CACHE_TTL = 10 * 60 * 60 * 1000; // 10 hours
+  private readonly CACHE_TTL = 10 * 60 * 60 * 1000;
   
   private getCacheKey(endpoint: string, params: any): string {
     return `${endpoint}:${JSON.stringify(params)}`;

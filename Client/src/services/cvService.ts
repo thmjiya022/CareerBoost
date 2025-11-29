@@ -26,7 +26,6 @@ class CVService {
         success: true,
         analysis: response.data.analysis,
       };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('CV upload failed:', error);
       return {

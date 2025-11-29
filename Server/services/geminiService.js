@@ -23,7 +23,6 @@ class GeminiService {
 			const response = await result.response;
 			const text = response.text();
 
-			// Parse the JSON response
 			const analysisData = this.parseGeminiResponse(text);
 
 			return {
@@ -41,7 +40,6 @@ class GeminiService {
 
 	parseGeminiResponse(text) {
 		try {
-			// Clean the response to extract JSON
 			const jsonMatch = text.match(/\{[\s\S]*\}/);
 			if (!jsonMatch) {
 				throw new Error("No JSON found in response");
@@ -50,7 +48,6 @@ class GeminiService {
 			const jsonText = jsonMatch[0];
 			const parsed = JSON.parse(jsonText);
 
-			// Add additional computed fields
 			parsed.id = `analysis_${Date.now()}`;
 			parsed.uploadDate = new Date().toISOString();
 			parsed.fileName = "uploaded-cv.pdf";
@@ -58,7 +55,7 @@ class GeminiService {
 			return parsed;
 		} catch (error) {
 			console.error("Failed to parse Gemini response:", error);
-			// Return fallback data
+
 			return this.getFallbackAnalysis();
 		}
 	}
