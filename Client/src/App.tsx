@@ -4,6 +4,9 @@ import CVAnalyzer from "./pages/cv-analyzer/CVAnalyzer";
 import JobMarket from "./pages/job-market/JobMarket";
 import { Toaster } from "react-hot-toast";
 import YouTubeLearning from "./pages/YouTubeLearning";
+import Contact from "./pages/landing/Contact";
+import About from "./pages/landing/About";
+import Services from "./pages/landing/Services";
 
 const App = () => {
 	return (
@@ -13,6 +16,9 @@ const App = () => {
 				<Route path="/cv-analyzer" element={<CVAnalyzer />} />
 				<Route path="/job-market" element={<JobMarket />} />
 				<Route path="/learn" element={<YouTubeLearning />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
 			</Routes>
 			<Toaster
 				position="top-right"
